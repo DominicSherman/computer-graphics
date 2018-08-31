@@ -1,0 +1,3 @@
+The pixels are stored in the framebuffer
+In full-color systems, tehre are 24 bits per pixel
+The four major steps in the imaging process is vertex processing, clipping and primitive assembly, rasterization, and fragment processing
