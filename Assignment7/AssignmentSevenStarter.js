@@ -1,7 +1,6 @@
-//name: put your name here
+//name: Dominic Sherman
 //description: Assignment 7
-//proposed points: If I neglect to change this comment and the name above, I agree that I will
-// automatically be deducted 1 point (out of 15)
+//proposed points: 13 (out of 15)
 // 
 // key bindings are set so that pressing 'W' will make the eye position move in z direction
 //                                       'S' will make the eye position move in -z direction
@@ -41,6 +40,8 @@ var depth = 20;
 var pictureSize = 2;
 var pictureSize = 2;
 var pictureOffGround = 1;
+
+var option = 0;
 
 function loadPoints(points,texture) {
     //load the vertex positions and texture positions here
@@ -169,9 +170,14 @@ function configureTexture(image) {
         gl.RGBA, gl.UNSIGNED_BYTE, image);
     gl.generateMipmap( gl.TEXTURE_2D );
     
-    //point sampling
-    gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST_MIPMAP_NEAREST);
-    gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST );
+    if (option == 0) { //point sampling
+        gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST_MIPMAP_NEAREST);
+        gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST );
+    }
+    else if (option == 1) { //linear sampling
+        gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+        gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST );
+    }
 
 }
 
@@ -213,6 +219,10 @@ onload = function init()  {
 
     //establish texture
     var image = document.getElementById("texImage");
+    document.getElementById("Menu").onclick = function (event) {
+        option = event.target.index;
+        configureTexture(image);
+    };
     configureTexture(image);
 
    // Initialize event handler (key codes)
